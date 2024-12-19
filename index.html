@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js v2 Example</title>
+  <!-- Vue.js v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js" integrity="sha512-v8+bPcpk4Sj7CKB11+gK/FnsbgQ15jTwZamnBf/xDmiQDcgOIYufBo6Acu1y30vrk8gg5su4x0CG3zfPaq5Fcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Vue.js Binding Example -->
+    <h1>{{ message }}</h1>
+    {{pros}}
+    <p>
+      <button @click="changeMessage">Change Message</button>
+    </p>
+  </div>
+
+  <script>
+    // Vue.js Instance
+    new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello, Vue.js v2!',
+        pros:[],
+        menus:[
+            {id:1, menu_name:"menu1"},
+            {id:2, menu_name:"menu2"},
+            {id:3, menu_name:"menu3"},
+            {id:4, menu_name:"menu4"},
+        ]
+      },
+      created(){
+        this.getProducts();
+      },
+      methods: {
+        changeMessage() {
+          this.message = 'You just changed the message!';
+        },
+        getProducts(){
+            axios.get('https://dummyjson.com/products')
+            .then((resp)=>{
+                this.pros =resp.data.products;
+                console.log(resp.data, 'resp data');
+            })
+        }
+      }
+    });
+  </script>
+</body>
+</html>
